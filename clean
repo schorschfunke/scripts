@@ -1,0 +1,20 @@
+#!/bin/sh
+#Script to claen the build environment
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+if [ "$trgt" = "42" ]
+then
+echo 'Cleaning for Android 4.2'
+fldr="datadrive"
+else
+echo 'Cleaning for Android 4.1'
+fldr="developer"
+fi
+
+#****************************************************************
+## clean up:
+cd ~/$fldr/android/system/
+make installclean
+find ./out/ -name 'build.prop' | xargs rm
+find ./out/ -name 'cm_galaxysmtd-target_files-eng.*.zip' | xargs rm

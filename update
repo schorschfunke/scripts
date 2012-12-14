@@ -1,0 +1,128 @@
+#!/bin/sh
+#Script to update CM repo
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+if [ "$trgt" = "42" ]
+then
+echo 'Updating for Android 4.2'
+fldr="datadrive"
+br="cm-10.1"
+else
+echo 'Updating for Android 4.1'
+fldr="developer"
+br="jellybean"
+fi
+
+#****************************************************************
+## update:
+cd ~/$fldr/android/system/
+
+repo sync -j16
+#****************************************************************
+## 4.1 ONLY
+if [ "$trgt" = "cm" ]
+then
+echo 'android'
+cd ~/$fldr/android/system/android/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
+echo 'servicemode'
+cd ~/$fldr/android/system/packages/apps/SamsungServiceMode/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+fi
+#****************************************************************
+
+#****************************************************************
+## 4.2 ONLY
+if [ "$trgt" = "42" ]
+then
+
+echo 'vold'
+cd ~/$fldr/android/system/system/vold/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
+echo 'device-common'
+cd ~/$fldr/android/system/device/common/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
+echo 'telephony'
+cd ~/$fldr/android/system/frameworks/opt/telephony/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+fi
+#****************************************************************
+
+echo 'build'
+cd ~/$fldr/android/system/build/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
+echo 'hardware'
+cd ~/$fldr/android/system/hardware/samsung/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
+echo 'aries-common'
+cd ~/$fldr/android/system/device/samsung/aries-common/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
+echo 'galaxysmtd'
+cd ~/$fldr/android/system/device/samsung/galaxysmtd/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
+echo 'frameworks_base'
+cd ~/$fldr/android/system/frameworks/base/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
+echo 'kernel'
+cd ~/$fldr/android/system/kernel/samsung/aries/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
+echo 'settings'
+cd ~/$fldr/android/system/packages/apps/Settings/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
+echo 'vendor_cm'
+cd ~/$fldr/android/system/vendor/cm/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
+cd ~/$fldr/android/system/
+
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC

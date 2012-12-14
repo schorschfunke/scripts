@@ -1,0 +1,21 @@
+#!/bin/bash
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+if [ "$trgt" = "42" ]
+then
+echo 'Cleaning Kernel for Android 4.2'
+fldr="datadrive"
+else
+echo 'Cleaning Kernel for Android 4.1'
+fldr="developer"
+fi
+
+#****************************************************************
+## cleanup:
+rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/obj/KERNEL_OBJ
+rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/kernel_zip
+rm ~/$fldr/android/system/out/target/product/galaxysmtd/kernel
+rm ~/$fldr/android/system/out/target/product/galaxysmtd/boot.img
+rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/root
+rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/ramdisk*

@@ -1,0 +1,34 @@
+#!/bin/sh
+#Script to build ROM
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+if [ "$trgt" = "42" ]
+then
+echo 'Building for Android 4.2'
+fldr="datadrive"
+else
+echo 'Building for Android 4.1'
+fldr="developer"
+fi
+
+#****************************************************************
+## Make a build:
+cd ~/$fldr/android/system/
+export LOCALVERSION="-FISHEARS"
+. build/envsetup.sh && brunch galaxysmtd
+
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC

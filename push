@@ -1,0 +1,84 @@
+#!/bin/sh
+#Script to push FISHEARS repo changes
+#****************************************************************
+## Set basic parameters:
+trgt=$1
+if [ "$trgt" = "42" ]
+then
+echo 'Building for Android 4.2'
+fldr="datadrive"
+br="cm-10.1"
+else
+echo 'Building for Android 4.1'
+fldr="developer"
+br="jellybean"
+fi
+
+#****************************************************************
+## push my changes:
+
+echo 'build'
+cd ~/$fldr/android/system/build/
+git push origin $br
+
+echo 'hardware'
+cd ~/$fldr/android/system/hardware/samsung/
+git push origin $br
+
+echo 'aries-common'
+cd ~/$fldr/android/system/device/samsung/aries-common/
+git push origin $br
+
+echo 'galaxysmtd'
+cd ~/$fldr/android/system/device/samsung/galaxysmtd/
+git push origin $br
+
+echo 'base'
+cd ~/$fldr/android/system/frameworks/base/
+git push origin $br
+
+echo 'kernel'
+cd ~/$fldr/android/system/kernel/samsung/aries/
+git push origin $br
+
+echo 'settings'
+cd ~/$fldr/android/system/packages/apps/Settings/
+git push origin $br
+
+echo 'cm'
+cd ~/$fldr/android/system/vendor/cm/
+git push origin $br
+
+#****************************************************************
+## FOR 4.1 ONLY
+if [ "$trgt" = "cm" ]
+then
+
+echo 'android'
+cd ~/$fldr/android/system/android/
+git push origin $br
+
+echo 'servicemode'
+cd ~/$fldr/android/system/packages/apps/SamsungServiceMode/
+git push origin $br
+fi
+
+#****************************************************************
+## FOR 4.2 ONLY
+if [ "$trgt" = "42" ]
+then
+
+echo 'device-common'
+cd ~/$fldr/android/system/device/common/
+git push origin $br
+
+echo 'vold'
+cd ~/$fldr/android/system/system/vold/
+git push origin $br
+
+echo 'telephony'
+cd ~/$fldr/android/system/frameworks/opt/telephony/
+git push origin $br
+fi
+
+cd ~/$fldr/android/system/

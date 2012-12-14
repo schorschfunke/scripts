@@ -1,0 +1,55 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set basic parameters:
+name=FISHEARS
+trgt=$1
+if [ "$trgt" = "42" ]
+then
+echo 'Building for Android 4.2'
+fldr="datadrive"
+else
+echo 'Building for Android 4.1'
+fldr="developer"
+fi
+finalout=~/$fldr/android/system/out/target/product/galaxysmtd
+androidtop=~/$fldr/android/system
+secsign=~/$fldr/android/system/build/target/product/security
+
+#****************************************************************
+## Clean build environment:
+cd ~/$fldr/android/system
+make installclean
+rm $finalout/boot.img
+
+#****************************************************************
+## Set kernel version in init:
+cd ~/$fldr/android/system/kernel/samsung/aries
+#git checkout jellybean
+export LOCALVERSION="-FISHEARS"
+#sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
+#mv ~/android/system/kernel/samsung/aries/init/version.vc ~/android/system/kernel/samsung/aries/init/version.c
+#git add ~/android/system/kernel/samsung/aries/init/version.c
+#git commit -m "Bump kernel version to `echo $version`"
+
+#****************************************************************
+## Build the kernel:
+cd ~/$fldr/android/system/
+. build/envsetup.sh
+breakfast galaxysmtd
+mka bootimage
+
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC
