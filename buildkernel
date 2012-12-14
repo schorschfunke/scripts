@@ -32,10 +32,6 @@ rm $finalout/boot.img
 cd ~/$fldr/android/system/kernel/samsung/aries
 #git checkout jellybean
 export LOCALVERSION="-FISHEARS"
-#sed "/Mackay/c\	\" ("`echo $name`_`echo $version`")\"" ~/android/system/kernel/samsung/aries/init/version.c > ~/android/system/kernel/samsung/aries/init/version.vc
-#mv ~/android/system/kernel/samsung/aries/init/version.vc ~/android/system/kernel/samsung/aries/init/version.c
-#git add ~/android/system/kernel/samsung/aries/init/version.c
-#git commit -m "Bump kernel version to `echo $version`"
 
 #****************************************************************
 ## Build the kernel:
