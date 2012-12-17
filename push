@@ -13,9 +13,16 @@ echo 'Building for Android 4.1'
 fldr="developer"
 br="jellybean"
 fi
+#****************************************************************
+## Start timer:
+START=$(date +%s)
 
 #****************************************************************
 ## push my changes:
+
+echo 'scripts'
+cd ~/datadrive/scripts/
+git push origin master
 
 echo 'build'
 cd ~/$fldr/android/system/build/
@@ -80,5 +87,14 @@ echo 'telephony'
 cd ~/$fldr/android/system/frameworks/opt/telephony/
 git push origin $br
 fi
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC
 
 cd ~/$fldr/android/system/
