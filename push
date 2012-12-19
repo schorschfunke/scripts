@@ -5,11 +5,11 @@
 trgt=$1
 if [ "$trgt" = "42" ]
 then
-echo 'Building for Android 4.2'
+echo 'Pushing commits for Android 4.2'
 fldr="datadrive"
 br="cm-10.1"
 else
-echo 'Building for Android 4.1'
+echo 'Pushing commits for Android 4.1'
 fldr="developer"
 br="jellybean"
 fi
