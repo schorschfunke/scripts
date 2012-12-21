@@ -3,6 +3,11 @@
 #****************************************************************
 ## Set basic parameters:
 trgt=$1
+if [ "$trgt" = ""]
+then
+  echo "No version specified"
+  exit
+fi
 if [ "$trgt" = "42" ]
 then
 echo 'Pushing commits for Android 4.2'

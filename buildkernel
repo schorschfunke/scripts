@@ -9,6 +9,11 @@ START=$(date +%s)
 ## Set basic parameters:
 name=FISHEARS
 trgt=$1
+if [ "$trgt" = ""]
+then
+  echo "No version specified"
+  exit
+fi
 if [ "$trgt" = "42" ]
 then
 echo 'Building for Android 4.2'
