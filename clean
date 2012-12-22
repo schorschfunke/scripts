@@ -3,7 +3,7 @@
 #****************************************************************
 ## Set basic parameters:
 trgt=$1
-if [ "$trgt" = ""]
+if [ -z "$trgt" ]
 then
   echo "No version specified"
   exit
