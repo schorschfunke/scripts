@@ -24,3 +24,14 @@ rm ~/$fldr/android/system/out/target/product/galaxysmtd/kernel
 rm ~/$fldr/android/system/out/target/product/galaxysmtd/boot.img
 rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/root
 rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/ramdisk*
+rm -f ~/$fldr/android/system/out/target/product/galaxysmtd/ramdisk-recovery.cpio
+rm -f ~/$fldr/android/system/out/target/product/galaxysmtd/ramdisk-recovery.img
+rm -f ~/$fldr/android/system/out/target/product/galaxysmtd/ramdisk.img
+rm -f ~/$fldr/android/system/out/target/product/galaxysmtd/system/bin/recovery
+rm -f ~/$fldr/android/system/out/target/product/galaxysmtd/symbols/system/bin/recovery
+rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/device
+rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/obj/device/samsung/galaxysmtd/recovery
+rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/obj/RECOVERY_EXECUTABLES
+rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/obj/EXECUTABLES/recovery_intermediates
+rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/recovery
+rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/symbols/recovery
