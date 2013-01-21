@@ -59,6 +59,12 @@ git checkout $br
 git fetch upstream
 git merge upstream/$br
 
+echo 'camera'
+cd ~/$fldr/android/system/packages/apps/Camera/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
 echo 'device-common'
 cd ~/$fldr/android/system/device/common/
 git checkout $br

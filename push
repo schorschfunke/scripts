@@ -84,6 +84,10 @@ fi
 if [ "$trgt" = "42" ]
 then
 
+echo 'camera'
+cd ~/$fldr/android/system/packages/apps/Camera/
+git push origin $br
+
 echo 'device-common'
 cd ~/$fldr/android/system/device/common/
 git push origin $br
