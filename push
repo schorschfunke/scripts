@@ -79,6 +79,9 @@ fi
 ## FOR 4.2 ONLY
 if [ "$trgt" = "42" ]
 then
+echo 'recovery'
+cd ~/$fldr/android/system/bootable/recovery/
+git push origin $br
 
 echo 'device-common'
 cd ~/$fldr/android/system/device/common/

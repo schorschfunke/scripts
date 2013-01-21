@@ -73,6 +73,12 @@ git merge upstream/$br
 fi
 #****************************************************************
 
+echo 'recovery'
+cd ~/$fldr/android/system/bootable/recovery/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
 echo 'build'
 cd ~/$fldr/android/system/build/
 git checkout $br
