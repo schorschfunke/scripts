@@ -29,6 +29,10 @@ echo 'scripts'
 cd ~/datadrive/scripts/
 git push origin master
 
+echo 'recovery'
+cd ~/$fldr/android/system/bootable/recovery/
+git push origin $br
+
 echo 'build'
 cd ~/$fldr/android/system/build/
 git push origin $br
@@ -79,9 +83,6 @@ fi
 ## FOR 4.2 ONLY
 if [ "$trgt" = "42" ]
 then
-echo 'recovery'
-cd ~/$fldr/android/system/bootable/recovery/
-git push origin $br
 
 echo 'device-common'
 cd ~/$fldr/android/system/device/common/
