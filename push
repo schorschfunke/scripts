@@ -61,6 +61,10 @@ echo 'settings'
 cd ~/$fldr/android/system/packages/apps/Settings/
 git push origin $br
 
+echo 'phone'
+cd ~/$fldr/android/system/packages/apps/Phone/
+git push origin $br
+
 echo 'cm'
 cd ~/$fldr/android/system/vendor/cm/
 git push origin $br
@@ -86,10 +90,6 @@ then
 
 echo 'camera'
 cd ~/$fldr/android/system/packages/apps/Camera/
-git push origin $br
-
-echo 'phone'
-cd ~/$fldr/android/system/packages/apps/Phone/
 git push origin $br
 
 echo 'device-common'
