@@ -17,6 +17,7 @@ echo 'Cleaning for Android 4.1'
 fldr="developer"
 fi
 
+cp ~/$fldr/android/system/out/target/product/galaxysmtd/obj/KERNEL_OBJ/arch/arm/boot/zImage ~/$fldr/LastKernel/
 #****************************************************************
 ## clean up:
 cd ~/$fldr/android/system/
