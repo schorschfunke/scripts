@@ -65,6 +65,12 @@ git checkout $br
 git fetch upstream
 git merge upstream/$br
 
+echo 'phone'
+cd ~/$fldr/android/system/packages/apps/Phone/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
 echo 'device-common'
 cd ~/$fldr/android/system/device/common/
 git checkout $br
