@@ -18,9 +18,11 @@ if [ "$trgt" = "42" ]
 then
 echo 'Building for Android 4.2'
 fldr="datadrive"
+ver='-4.2-'
 else
 echo 'Building for Android 4.1'
 fldr="developer"
+ver='-4.1-'
 fi
 finalout=~/$fldr/android/system/out/target/product/galaxysmtd
 androidtop=~/$fldr/android/system
@@ -35,7 +37,6 @@ rm $finalout/boot.img
 #****************************************************************
 ## Set kernel version in init:
 cd ~/$fldr/android/system/kernel/samsung/aries
-#git checkout jellybean
 export LOCALVERSION="-FISHEARS"
 
 #****************************************************************
@@ -45,6 +46,45 @@ cd ~/$fldr/android/system/
 breakfast galaxysmtd
 mka bootimage
 
+#****************************************************************
+## Package the kernel:
+if [ -e $finalout/boot.img ]
+then
+  echo "Packaging kernel"
+else
+  echo "boot.img not found. Aborting"
+  exit 0
+fi
+name=$name$ver$(date +%Y%m%d)
+cd $finalout
+rm -rf kernel_zip
+mkdir -p kernel_zip/system/app
+mkdir -p kernel_zip/system/etc/init.d
+mkdir -p kernel_zip/system/lib/modules
+mkdir -p kernel_zip/META-INF/com/google/android
+echo "Copying boot.img ..."
+cp boot.img kernel_zip/
+echo "Copying kernel modules ..."
+cp -R system/lib/modules/* kernel_zip/system/lib/modules
+echo "Copying update-binary ..."
+cp -R obj/EXECUTABLES/updater_intermediates/updater kernel_zip/META-INF/com/google/android/update-binary
+cp -R ~/datadrive/scripts/updater-script kernel_zip/META-INF/com/google/android
+echo "Copying Utilities ..."
+cp -R utilities/bml_over_mtd kernel_zip
+cp -R utilities/erase_image kernel_zip
+cp -R utilities/flash_image kernel_zip
+cp -R ~/datadrive/Kernels/bml_over_mtd.sh kernel_zip
+echo "Zipping package..."
+cd kernel_zip
+zip -qr ../$name.zip ./
+cd $finalout
+echo "Signing package..."
+java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.x509.pem $secsign/testkey.pk8 $name.zip $name-signed.zip
+rm $name.zip
+echo -e "${txtgrn}Package complete:${txtrst} $finalout/$name-signed.zip"
+md5sum $name-signed.zip
+echo "Moving to Kernels dir"
+mv $finalout/$name-signed.zip ~/datadrive/Kernels/$trgt
 #****************************************************************
 ## Report timer:
 END=$(date +%s)
