@@ -13,7 +13,9 @@ then
 echo 'Pushing commits for Android 4.2'
 fldr="datadrive"
 br="cm-10.1"
-else
+fi
+if [ "$trgt" = "cm" ]
+then
 echo 'Pushing commits for Android 4.1'
 fldr="developer"
 br="jellybean"

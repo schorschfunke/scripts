@@ -11,7 +11,9 @@ if [ "$trgt" = "42" ]
 then
 echo 'Cleaning Kernel for Android 4.2'
 fldr="datadrive"
-else
+fi
+if [ "$trgt" = "cm" ]
+then
 echo 'Cleaning Kernel for Android 4.1'
 fldr="developer"
 fi

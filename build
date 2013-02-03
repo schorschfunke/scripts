@@ -18,7 +18,9 @@ if [ "$trgt" = "42" ]
 then
 echo 'Building for Android 4.2'
 fldr="datadrive"
-else
+fi
+if [ "$trgt" = "cm" ]
+then
 echo 'Building for Android 4.1'
 fldr="developer"
 fi
