@@ -1,0 +1,92 @@
+#!/bin/bash
+#
+
+#****************************************************************
+## Start timer:
+START=$(date +%s)
+
+#****************************************************************
+## Set basic parameters:
+name=FISHEARS-KERNEL
+trgt=$1
+if [ $2 ]
+then
+extra=$2'-'
+else
+extra=''
+fi
+
+if [ -z "$trgt" ]
+then
+  echo "No version specified"
+  exit
+fi
+if [ "$trgt" = "42" ]
+then
+echo 'Packing for Android 4.2'
+fldr="datadrive"
+ver='-4.2-'
+fi
+if [ "$trgt" = "cm" ]
+then
+echo 'Packing for Android 4.1'
+fldr="developer"
+ver='-4.1-'
+fi
+finalout=~/$fldr/android/system/out/target/product/galaxysmtd
+androidtop=~/$fldr/android/system
+secsign=~/$fldr/android/system/build/target/product/security
+
+#****************************************************************
+## Set kernel version in init:
+cd ~/$fldr/android/system/kernel/samsung/aries
+export LOCALVERSION="-FISHEARS"
+
+#****************************************************************
+## Package the kernel:
+if [ -e $finalout/boot.img ]
+then
+  echo "Packaging kernel"
+else
+  echo "boot.img not found. Aborting"
+  exit 0
+fi
+name=$name$ver$extra$(date +%Y%m%d)
+cd $finalout
+rm -rf kernel_zip
+mkdir -p kernel_zip/system/app
+mkdir -p kernel_zip/system/etc/init.d
+mkdir -p kernel_zip/system/lib/modules
+mkdir -p kernel_zip/META-INF/com/google/android
+echo "Copying boot.img ..."
+cp boot.img kernel_zip/
+echo "Copying kernel modules ..."
+cp -R system/lib/modules/* kernel_zip/system/lib/modules
+echo "Copying update-binary ..."
+cp -R obj/EXECUTABLES/updater_intermediates/updater kernel_zip/META-INF/com/google/android/update-binary
+cp -R ~/datadrive/scripts/updater-script kernel_zip/META-INF/com/google/android
+echo "Copying Utilities ..."
+cp -R utilities/bml_over_mtd kernel_zip
+cp -R utilities/erase_image kernel_zip
+cp -R utilities/flash_image kernel_zip
+cp -R ~/datadrive/Kernels/bml_over_mtd.sh kernel_zip
+echo "Zipping package..."
+cd kernel_zip
+zip -qr ../$name.zip ./
+cd $finalout
+echo "Signing package..."
+java -jar $androidtop/out/host/linux-x86/framework/signapk.jar $secsign/testkey.x509.pem $secsign/testkey.pk8 $name.zip $name-signed.zip
+rm $name.zip
+echo -e "${txtgrn}Package complete:${txtrst} $finalout/$name-signed.zip"
+md5sum $name-signed.zip
+echo "Moving to Kernels dir"
+mv $finalout/$name-signed.zip ~/datadrive/Kernels/$trgt
+#****************************************************************
+## Report timer:
+END=$(date +%s)
+ELAPSED=$((END - START))
+E_MIN=$((ELAPSED / 60))
+E_SEC=$((ELAPSED - E_MIN * 60))
+printf "${txtgrn}Elapsed: "
+[ $E_MIN != 0 ] && printf "%d min(s) " $E_MIN
+printf "%d sec(s)\n ${txtrst}" $E_SEC
