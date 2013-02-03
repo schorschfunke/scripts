@@ -9,6 +9,12 @@ START=$(date +%s)
 ## Set basic parameters:
 name=FISHEARS-KERNEL
 trgt=$1
+if [ $2 ]
+then
+extra=$2'-'
+else
+extra=''
+fi
 if [ -z "$trgt" ]
 then
   echo "No version specified"
@@ -19,7 +25,9 @@ then
 echo 'Building for Android 4.2'
 fldr="datadrive"
 ver='-4.2-'
-else
+fi
+if [ "$trgt" = "cm" ]
+then
 echo 'Building for Android 4.1'
 fldr="developer"
 ver='-4.1-'
@@ -37,8 +45,12 @@ rm $finalout/boot.img
 #****************************************************************
 ## Set kernel version in init:
 cd ~/$fldr/android/system/kernel/samsung/aries
+if [ $2 ]
+then
+export LOCALVERSION="-FISHEARS-"$2
+else
 export LOCALVERSION="-FISHEARS"
-
+fi
 #****************************************************************
 ## Build the kernel:
 cd ~/$fldr/android/system/
@@ -55,7 +67,7 @@ else
   echo "boot.img not found. Aborting"
   exit 0
 fi
-name=$name$ver$(date +%Y%m%d)
+name=$name$ver$extra$(date +%Y%m%d)
 cd $finalout
 rm -rf kernel_zip
 mkdir -p kernel_zip/system/app
