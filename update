@@ -67,6 +67,12 @@ git checkout $br
 git fetch upstream
 git merge upstream/$br
 
+echo 'trebuchet'
+cd ~/$fldr/android/system/packages/apps/Trebuchet/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
 echo 'device-common'
 cd ~/$fldr/android/system/device/common/
 git checkout $br

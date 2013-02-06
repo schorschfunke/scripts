@@ -94,6 +94,10 @@ echo 'camera'
 cd ~/$fldr/android/system/packages/apps/Camera/
 git push origin $br
 
+echo 'trebuchet'
+cd ~/$fldr/android/system/packages/apps/Trebuchet/
+git push origin $br
+
 echo 'device-common'
 cd ~/$fldr/android/system/device/common/
 git push origin $br
