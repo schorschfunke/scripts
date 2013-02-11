@@ -76,10 +76,11 @@ mkdir -p kernel_zip/system/lib/modules
 mkdir -p kernel_zip/META-INF/com/google/android
 echo "Copying boot.img ..."
 cp boot.img kernel_zip/
+cp $finalout/obj/KERNEL_OBJ/arch/arm/boot/zImage kernel_zip/
 echo "Copying kernel modules ..."
 cp -R system/lib/modules/* kernel_zip/system/lib/modules
 echo "Copying update-binary ..."
-cp -R obj/EXECUTABLES/updater_intermediates/updater kernel_zip/META-INF/com/google/android/update-binary
+cp -R $finalout/obj/EXECUTABLES/updater_intermediates/updater kernel_zip/META-INF/com/google/android/update-binary
 cp -R ~/datadrive/scripts/updater-script kernel_zip/META-INF/com/google/android
 echo "Copying Utilities ..."
 cp -R utilities/bml_over_mtd kernel_zip
@@ -88,6 +89,8 @@ cp -R utilities/flash_image kernel_zip
 cp -R ~/datadrive/Kernels/bml_over_mtd.sh kernel_zip
 echo "Zipping package..."
 cd kernel_zip
+tar -cf $name.tar zImage
+mv $finalout/kernel_zip/$name.tar ~/datadrive/Kernels/$trgt
 zip -qr ../$name.zip ./
 cd $finalout
 echo "Signing package..."

@@ -1,12 +1,19 @@
-show_progress(0.100000, 1);
-mount("yaffs2", "MTD", "system", "/system");
-ui_print(">>> Installing FISHEARS kernel...");
-ui_print("----------------------------------------------");
+ui_print(">>");
+ui_print(">> FISHEARS KERNEL UPDATER");
+ui_print(">>");
+
+assert(getprop("ro.product.device") == "galaxys" || getprop("ro.build.product") == "galaxys" || 
+       getprop("ro.product.device") == "galaxysmtd" || getprop("ro.build.product") == "galaxysmtd" || 
+       getprop("ro.product.device") == "GT-I9000" || getprop("ro.build.product") == "GT-I9000" || 
+       getprop("ro.product.device") == "GT-I9000M" || getprop("ro.build.product") == "GT-I9000M" || 
+       getprop("ro.product.device") == "GT-I9000T" || getprop("ro.build.product") == "GT-I9000T");
+
+show_progress(0.100000, 5);
+ui_print(">>> Installing kernel...");
+ui_print("		                                             ");
 
 #mount partitions
 run_program("/sbin/mount", "/system");
-run_program("/sbin/mount", "/cache");
-run_program("/sbin/mount", "/dev/block/mmcblk0p2", "/data");
 
 ui_print(">>> Extracting kernel flash tools...");
 show_progress(0.200000, 2);
@@ -20,11 +27,7 @@ package_extract_file("erase_image", "/tmp/erase_image");
 set_perm(0, 0, 0777, "/tmp/erase_image");
 show_progress(0.300000, 2);
 
-ui_print(">>> Clearing dalvik-cache...");
-delete_recursive("/data/dalvik-cache");
-show_progress(0.300000, 2);
-
-ui_print(">>> Setting up the kernel...");
+ui_print(">>> Cleaning up...");
 package_extract_dir("system", "/system");
 
 assert(run_program("/tmp/erase_image", "boot"));

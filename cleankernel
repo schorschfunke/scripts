@@ -20,7 +20,6 @@ fi
 
 #****************************************************************
 ## cleanup:
-cp ~/$fldr/android/system/out/target/product/galaxysmtd/obj/KERNEL_OBJ/arch/arm/boot/zImage ~/$fldr/Kernels/
 rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/obj/KERNEL_OBJ
 rm -rf ~/$fldr/android/system/out/target/product/galaxysmtd/kernel_zip
 rm ~/$fldr/android/system/out/target/product/galaxysmtd/kernel
