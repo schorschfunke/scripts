@@ -74,6 +74,7 @@ cp -R ~/datadrive/Kernels/bml_over_mtd.sh kernel_zip
 echo "Zipping package..."
 cd kernel_zip
 tar -cf $name.tar zImage
+rm zImage
 mv $finalout/kernel_zip/$name.tar ~/datadrive/Kernels/$trgt
 zip -qr ../$name.zip ./
 cd $finalout
