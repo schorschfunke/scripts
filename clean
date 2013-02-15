@@ -21,7 +21,6 @@ fldr="developer"
 ver='-4.1-'
 fi
 
-cp ~/$fldr/android/system/out/target/product/galaxysmtd/obj/KERNEL_OBJ/arch/arm/boot/zImage ~/$fldr/Kernels/zImage$ver$(date +%Y%m%d)
 #****************************************************************
 ## clean up:
 cd ~/$fldr/android/system/
