@@ -109,6 +109,10 @@ git push origin $br
 echo 'telephony'
 cd ~/$fldr/android/system/frameworks/opt/telephony/
 git push origin $br
+
+echo 'core'
+cd ~/$fldr/android/system/system/core/
+git push origin $br
 fi
 #****************************************************************
 ## Report timer:

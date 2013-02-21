@@ -84,6 +84,13 @@ cd ~/$fldr/android/system/frameworks/opt/telephony/
 git checkout $br
 git fetch upstream
 git merge upstream/$br
+
+echo 'core'
+cd ~/$fldr/android/system/system/core/
+git checkout $br
+git fetch upstream
+git merge upstream/$br
+
 fi
 #****************************************************************
 
