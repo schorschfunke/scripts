@@ -18,17 +18,39 @@ if [ "$trgt" = "42" ]
 then
 echo 'Building for Android 4.2'
 fldr="datadrive"
+cd ~/$fldr/android/system/kernel/samsung/aries
+git checkout cm-10.1
+cd ~/$fldr/android/system/vendor/cm
+git checkout cm-10.1
+cd ~/$fldr/android/system/device/samsung/aries-common
+git checkout cm-10.1
 fi
 if [ "$trgt" = "cm" ]
 then
 echo 'Building for Android 4.1'
 fldr="developer"
 fi
+if [ "$trgt" = "lvm" ]
+then
+echo 'Building 4.2 LVM version'
+fldr="datadrive"
+cd ~/$fldr/android/system/kernel/samsung/aries
+git checkout cm-10.1-LVM
+cd ~/$fldr/android/system/vendor/cm
+git checkout cm-10.1-LVM
+cd ~/$fldr/android/system/device/samsung/aries-common
+git checkout cm-10.1-LVM
+fi
 
 #****************************************************************
 ## Make a build:
-cd ~/$fldr/android/system/
+if [ "$trgt" = "lvm" ]
+then
+export LOCALVERSION="-FISHEARS-LVM"
+else
 export LOCALVERSION="-FISHEARS"
+fi
+cd ~/$fldr/android/system/
 . build/envsetup.sh && brunch galaxysmtd
 
 #****************************************************************
