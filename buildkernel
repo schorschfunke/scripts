@@ -96,6 +96,8 @@ cp $finalout/obj/KERNEL_OBJ/arch/arm/boot/zImage kernel_zip/
 echo "Copying kernel modules ..."
 cp -R system/lib/modules/* kernel_zip/system/lib/modules
 cp -R system/lib/hw/lights.aries.so kernel_zip/system/lib/hw
+echo "Copying NSTools ..."
+cp -R system/app/NSTools.apk kernel_zip/system/app
 echo "Copying update-binary ..."
 cp -R $finalout/obj/EXECUTABLES/updater_intermediates/updater kernel_zip/META-INF/com/google/android/update-binary
 cp -R ~/datadrive/scripts/updater-script kernel_zip/META-INF/com/google/android

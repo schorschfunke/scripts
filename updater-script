@@ -27,7 +27,7 @@ package_extract_file("erase_image", "/tmp/erase_image");
 set_perm(0, 0, 0777, "/tmp/erase_image");
 show_progress(0.300000, 2);
 
-ui_print(">>> Cleaning up...");
+ui_print(">>> Extracting kernel files...");
 package_extract_dir("system", "/system");
 
 assert(run_program("/tmp/erase_image", "boot"));
