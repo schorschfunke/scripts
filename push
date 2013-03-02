@@ -31,6 +31,10 @@ echo 'scripts'
 cd ~/datadrive/scripts/
 git push origin master
 
+echo 'nstools'
+cd ~/$fldr/android/system/packages/apps/NSTools/
+git push origin master
+
 echo 'recovery'
 cd ~/$fldr/android/system/bootable/recovery/
 git push origin $br
