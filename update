@@ -126,7 +126,7 @@ echo 'aries-common'
 cd ~/$fldr/android/system/device/samsung/aries-common/
 git checkout $br2
 git fetch upstream
-git merge upstream/$br2
+git merge upstream/$br
 
 echo 'galaxysmtd'
 cd ~/$fldr/android/system/device/samsung/galaxysmtd/
@@ -144,7 +144,7 @@ echo 'kernel'
 cd ~/$fldr/android/system/kernel/samsung/aries/
 git checkout $br2
 git fetch upstream
-git merge upstream/$br2
+git merge upstream/$br
 
 echo 'settings'
 cd ~/$fldr/android/system/packages/apps/Settings/
@@ -162,7 +162,7 @@ echo 'vendor_cm'
 cd ~/$fldr/android/system/vendor/cm/
 git checkout $br2
 git fetch upstream
-git merge upstream/$br2
+git merge upstream/$br
 
 cd ~/$fldr/android/system/
 
