@@ -33,7 +33,7 @@ git push origin master
 
 echo 'nstools'
 cd ~/$fldr/android/system/packages/apps/NSTools/
-git push origin master
+git push origin fishears
 
 echo 'recovery'
 cd ~/$fldr/android/system/bootable/recovery/
